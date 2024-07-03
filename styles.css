@@ -63,6 +63,16 @@ article {
     color: dimgray;
 }
 
+.notice_panel {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 30px auto 30px auto;
+}
+
 .card_container {
     display: flex;
     margin-top: 20px;
@@ -80,6 +90,10 @@ article {
     margin: 10px;
     text-wrap: wrap;
     text-decoration: none;
+}
+
+.card_item_img {
+    border-radius: 10px 10px 0px 0px;
 }
 
 .card_item_title {
