@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Description | @HolySkyMin</title>
+    <link href="/styles.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUITE@2/fonts/static/woff2/SUITE.css" rel="stylesheet">
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+</head>
+<body>
+    <header>
+        <h1 style="text-align: center;">@HolySkyMin</h1>
+    </header>
+    <nav class="page_divider" style="padding:5px;">
+        <a class="nav_link" href="/games">Back to Games</a>
+    </nav>
+
+    <main style="padding-top:20px; padding-bottom:20px;">
+        <md-block id="markdown">
+            Loading...
+        </md-block>
+    </main>
+    
+    <script>
+        let params = new URLSearchParams(document.location.search);
+        let gameKey = params.get("game");
+
+        document.getElementById("markdown").setAttribute("src", gameKey + ".md");
+    </script>
+</body>
+</html>

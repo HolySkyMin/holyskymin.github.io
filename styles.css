@@ -13,6 +13,10 @@ main {
     max-width: 720px;
 }
 
+.games_main {
+    max-width: 1280px;
+}
+
 header {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -49,15 +53,6 @@ article {
     text-align: center;
 }
 
-.disclamer {
-    background-color: whitesmoke;
-    border-radius: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
 .caption_img {
     display: block;
     margin-left: auto;
@@ -66,4 +61,33 @@ article {
     margin-bottom: 10px;
     text-align: center;
     color: dimgray;
+}
+
+.card_container {
+    display: flex;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card_item {
+    width: 400px;
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 10px;
+    margin: 10px;
+    text-wrap: wrap;
+    text-decoration: none;
+}
+
+.card_item_title {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+.card_item_text {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
