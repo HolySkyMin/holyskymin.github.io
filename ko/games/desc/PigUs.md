@@ -13,10 +13,10 @@
     <md-block style="width:250px;">
         ## 다운로드
         <div style="width=100%; max-width:250px;">
-            <a href="https://play.google.com/store/apps/details?id=org.teamporkbelly.pigus" style="text-decoration:none;">
+            <a href="https://play.google.com/store/apps/details?id=org.teamporkbelly.pigus" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_google_ko.png" width=100%/>
             </a>
-            <a href="https://apps.apple.com/kr/app/%EB%8F%BC%EC%A7%80-%EC%9A%B0%EB%A6%AC/id1474252822" style="text-decoration:none;">
+            <a href="https://apps.apple.com/kr/app/%EB%8F%BC%EC%A7%80-%EC%9A%B0%EB%A6%AC/id1474252822" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_apple_ko.svg" width=100%/>
             </a>
         </div>
