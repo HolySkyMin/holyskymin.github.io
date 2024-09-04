@@ -27,6 +27,14 @@ article {
     margin-bottom: 50px;
 }
 
+p {
+    line-height: 150%
+}
+
+ul {
+    line-height: 150%
+}
+
 .nav_link {
     background-color: gray;
     color: white;
