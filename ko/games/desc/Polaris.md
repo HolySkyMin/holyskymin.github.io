@@ -1,4 +1,4 @@
-# Polaris - Story of stars -
+# Polaris - The Story of Stars -
 
 ## 게임 정보
 - **장르**: 캐릭터 수집(코레류)

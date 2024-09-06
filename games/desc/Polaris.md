@@ -1,1 +1,1 @@
-# Polaris - Story of stars -
+# Polaris - The Story of Stars -
