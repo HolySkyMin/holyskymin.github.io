@@ -14,12 +14,14 @@
     <md-block style="width:250px;">
         ## 다운로드
         <div style="width=100%; max-width:250px;">
-            <a href="" target="_blank" style="text-decoration:none;">
+            <a href="https://play.google.com/store/apps/details?id=com.snugdc.polaris" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_google_ko.png" width=100%/>
             </a>
+            <!--
             <a href="" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_apple_ko.svg" width=100%/>
             </a>
+            -->
         </div>
     </md-block>
 </div>
@@ -43,3 +45,14 @@
 실제 인게임 코드의 대부분을 본인이 작성하였다.
 
 2019년 진행된 스마일게이트 멤버십(SGM) 11기 과정에 본 작품으로 참여하였다.
+
+## 스크린샷
+
+<div style="display:flex; flex-flow:row wrap; justify-content:center;">
+    <img src="/assets/images/ss/Polaris_1.png" width=49%; style="max-width:238px; margin:1px"/>
+    <img src="/assets/images/ss/Polaris_2.png" width=49%; style="max-width:238px; margin:1px"/>
+    <img src="/assets/images/ss/Polaris_3.png" width=49%; style="max-width:238px; margin:1px"/>
+    <img src="/assets/images/ss/Polaris_4.png" width=49%; style="max-width:238px; margin:1px"/>
+    <img src="/assets/images/ss/Polaris_5.png" width=49%; style="max-width:238px; margin:1px"/>
+    <img src="/assets/images/ss/Polaris_6.png" width=49%; style="max-width:238px; margin:1px"/>
+</div>
