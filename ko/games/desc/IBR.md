@@ -27,6 +27,7 @@
 ## 영상
 
 ### 트레일러 (NDM 시연용)
+
 <video controls width=100%>
     <source src="/assets/videos/IBR_trailer.mp4" type="video/mp4"/>
 </video>

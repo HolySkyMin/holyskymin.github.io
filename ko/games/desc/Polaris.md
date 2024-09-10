@@ -17,11 +17,9 @@
             <a href="https://play.google.com/store/apps/details?id=com.snugdc.polaris" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_google_ko.png" width=100%/>
             </a>
-            <!--
-            <a href="" target="_blank" style="text-decoration:none;">
+            <a href="https://apps.apple.com/app/polaris-the-story-of-stars/id6670620923" target="_blank" style="text-decoration:none;">
                 <img src="/assets/images/icons/dlbadge_apple_ko.svg" width=100%/>
             </a>
-            -->
         </div>
     </md-block>
 </div>
