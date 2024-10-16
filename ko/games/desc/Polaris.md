@@ -7,9 +7,10 @@
         ## 게임 정보
         - **장르**: 캐릭터 수집
         - **플랫폼**: 모바일
-        - **게임 엔진**: Unity
+        - **게임 엔진**: Unity 2017.4
         - **개발 기간**: 2018. 8. ~ 2020. 12. (2.5년)
         - [GitHub에서 보기](https://github.com/HolySkyMin/Polaris)
+          - 스토어 배포를 위해 Unity 2022.3 버전으로 판올림되었다.
     </md-block>
     <md-block style="width:250px;">
         ## 다운로드
@@ -69,3 +70,88 @@
     <img src="/assets/images/ss/Polaris_5.png" width=49%; style="max-width:238px; margin:1px"/>
     <img src="/assets/images/ss/Polaris_6.png" width=49%; style="max-width:238px; margin:1px"/>
 </div>
+
+## 개발 회고
+
+### 면적에 비례한 캐릭터 출현 확률
+"Polaris - The Story of Stars -"에서 가장 핵심이 되는 기능이라고 하면 단연 "관측 기능"이다.
+관측 기능은 하단 UI의 제일 왼쪽 버튼을 눌러 접근 가능하며, 밤하늘의 원하는 위치에
+망원경을 조준해 관측 지점을 설정하고, 시간을 들여 해당 지점을 관측해
+관측 시간에 비례해 캐릭터와 캐릭터의 호감도를 얻는 기능이다.
+
+언뜻 들으면 다른 게임의 이른바 "가챠" 기능과 크게 다를 바 없는 기능이지만, 관측 기능을
+단순한 가챠와는 다르게 만드는 핵심 요소는 바로 관측 지점이 출현 확률에 영향을 끼친다는 것이다.
+밤하늘에 묘사된 약 30여개의 별자리 각각마다 출현할 캐릭터와 그 비중이 설정되어 있고,
+망원경이 "덮고 있는" 면적에서 각 별자리가 차지하는 비율이 추가로 반영되어 최종적으로 캐릭터의 출현 확률이 결정된다.
+
+그런데, 망원경이 덮고 있는 원형의 지점에서 각 별자리가 얼마만큼의 자리를 차지하는지는 어떻게 알아내야 할까?
+별자리마다 일종의 무게중심점이 있고 망원경의 중심으로부터의 거리를 활용해 비율을 계산하는 방법도 고려해 봤지만,
+"그렇게 현실적이지 않을 것 같다", 즉 실제 비율을 반영하지 못할 것 같다는 의견이 팀 내부에서 제기되었다.
+
+최종적으로 선택한 방법은 어찌 보면 굉장히 단순무식한 방법인데, 바로 **별자리 각각의 영역을 PolygonCollider2D로 정의하고,
+망원경에서는 Raycast를 고르게 쏴, 별자리마다 각각 충돌한 Raycast의 개수를 그 비율로 한다**였다.
+
+아래 코드는 ObserveManager 코드의 일부로, 현재 망원경의 위치에서 Raycast를 쏘는 코드이다.
+```cs
+public void ShotRay()
+{
+    var pos = Scope.transform.position;
+    constelHitCount = constelHitCount.ToDictionary(p => p.Key, p => 0);
+
+    CastRay(pos);
+    CastRay(pos);
+    CastRay(pos);
+    CastRay(pos);
+
+    for (int i = 1; i <= SCOPE_CIRCLE_COUNT; i++)
+    {
+        for (int j = 0; j < i * SCOPE_UNIT_RAYS; j++)
+        {
+            float r = SCOPE_RADIUS * (1f / SCOPE_CIRCLE_COUNT) * i;
+            float theta = 2 * Mathf.PI * ((float)j / (SCOPE_UNIT_RAYS * i)) + (2 * Mathf.PI / SCOPE_UNIT_RAYS / SCOPE_CIRCLE_COUNT * (i - 1));
+            pos = Scope.transform.position + new Vector3(r * Mathf.Cos(theta), r * Mathf.Sin(theta), 0);
+            CastRay(pos);
+        }
+    }
+
+    status.charProb.Clear();
+    foreach(var constel in constelHitCount)
+    {
+        foreach(var charIndex in constelCharData[constel.Key].charas)
+        {
+            if (!status.charProb.ContainsKey(charIndex))
+                status.charProb.Add(charIndex, 0);
+            status.charProb[charIndex] += constel.Value * constelCharData[constel.Key].charWeights[charIndex];
+        }
+    }
+
+    var centerConstel = GetCenterConstelKey();
+    if (centerConstel == "null")
+        ConstelName.text = "미지의 영역";
+    else
+        ConstelName.text = Variables.Constels[centerConstel].Name;
+    ConstelImage.GetComponent<Image>().sprite = Resources.Load<Sprite>("Constellations/Observation/" + centerConstel);
+
+    if (!status.isTutorial)
+    {
+        var orderedCharProb = status.charProb.OrderByDescending(p => p.Value);
+        for (int i = 0; i < 4; i++)
+        {
+            if (i >= orderedCharProb.Count())
+                CharDisplay[i].gameObject.SetActive(false);
+            else
+            {
+                CharDisplay[i].gameObject.SetActive(true);
+                CharDisplay[i].Set(orderedCharProb.ElementAt(i).Key);
+            }
+        }
+    }
+}
+```
+일단 중앙 지점의 낮은 확률을 보정하기 위해 Raycast를 4번 한 뒤, 중심으로부터 원을 그려 나가면서
+각 원의 시작점도 비트는 등 최대한 균일하게 Raycast를 하려고 노력하였다. 그 다음 중앙 별자리의 정보를 가져오고,
+Raycast를 하면서 수집한 캐릭터 확률 정보(CastRay 함수가 하는 일이다)를 정돈해 유저에게 보여준다.
+
+개발 초기에는 "많은 게 좋은 거지" 하면서 쏘는 Ray의 개수를 매 프레임마다 약 10만 개 정도로 설정했었는데,
+실제 디바이스에서 테스트할 때 성능 저하가 심하게 일어나 최종적으로는
+망원경이 이동하고 있을 때에만 약 1천 개 정도를 쏘는 것으로 사양을 변경하였다.

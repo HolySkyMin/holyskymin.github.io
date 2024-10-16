@@ -5,7 +5,7 @@
         ## 게임 정보
         - **장르**: 서브컬쳐, 탑다운 2D 액션
         - **플랫폼**: PC
-        - **게임 엔진**: Unity
+        - **게임 엔진**: Unity 2022.3
         - **개발 기간**: 2021. 1. ~
     </md-block>
     <div class="caption_img" style="max-width:320px">

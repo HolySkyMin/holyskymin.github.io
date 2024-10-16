@@ -7,9 +7,10 @@
         ## 게임 정보
         - **장르**: 어드벤쳐, 스토리텔링
         - **플랫폼**: PC, 모바일
-        - **게임 엔진**: Unity
+        - **게임 엔진**: Unity 2018.4
         - **개발 기간**: 2019. 3. ~ 2019. 7. (4개월)
         - [GitHub에서 보기](https://github.com/HolySkyMin/PigUs)
+          - 스토어 배포를 위해 Unity 2022.3 버전으로 판올림되었다.
     </md-block>
     <md-block style="width:250px;">
         ## 다운로드

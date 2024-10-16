@@ -5,7 +5,7 @@
         ## 게임 정보
         - **장르**: 교단 운영, 파라미터 관리, 스토리텔링
         - **플랫폼**: PC
-        - **게임 엔진**: Godot
+        - **게임 엔진**: Godot 4.2
         - **개발 기간**: 2022. 6. ~ 진행 중
     </md-block>
     <div class="caption_img" style="max-width:320px">

@@ -28,11 +28,9 @@
 
 ### 트레일러 (NDM 시연용)
 
-<video controls width=100%>
-    <source src="/assets/videos/IBR_trailer.mp4" type="video/mp4"/>
+<video controls width=100% source src="/assets/videos/IBR_trailer.mp4" type="video/mp4">
 </video>
 
 ### 플레이 영상 (게임잼 버전)
-<video controls width=100%>
-    <source src="/assets/videos/IBR_play_gamejam.mp4" type="video/mp4"/>
+<video controls width=100% source src="/assets/videos/IBR_play_gamejam.mp4" type="video/mp4">
 </video>
