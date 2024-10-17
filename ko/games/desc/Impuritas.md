@@ -5,7 +5,7 @@
         ## 게임 정보
         - **장르**: 서브컬쳐, 퍼즐
         - **플랫폼**: 모바일
-        - **게임 엔진**: Unity
+        - **게임 엔진**: Unity 2022.3
         - **개발 기간**: 2023. 12. ~ 진행 중
     </md-block>
     <div class="caption_img" style="max-width:320px">

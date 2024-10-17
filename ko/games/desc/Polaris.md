@@ -10,7 +10,6 @@
         - **게임 엔진**: Unity 2017.4
         - **개발 기간**: 2018. 8. ~ 2020. 12. (2.5년)
         - [GitHub에서 보기](https://github.com/HolySkyMin/Polaris)
-          - 스토어 배포를 위해 Unity 2022.3 버전으로 판올림되었다.
     </md-block>
     <md-block style="width:250px;">
         ## 다운로드

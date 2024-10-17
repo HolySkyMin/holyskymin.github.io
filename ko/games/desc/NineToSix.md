@@ -6,7 +6,7 @@
             ## 게임 정보
             - **장르**: 수강신청 액션
             - **플랫폼**: PC
-            - **게임 엔진**: Unity
+            - **게임 엔진**: Unity 2022.3
             - **개발 기간**: 2024. 1. (3일)
             - [GitHub에서 보기](https://github.com/2ndUNIJAM/NineToSix)
         </md-block>
