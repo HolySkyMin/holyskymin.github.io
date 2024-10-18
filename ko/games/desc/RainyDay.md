@@ -42,3 +42,88 @@
 
 ## 스크린샷
 <img src="/assets/images/RainyDay_image.png" width=100%/>
+
+## 개발 회고
+
+### 비에 젖은 땅
+"Rainy Day Walker"의 핵심 플레이 기믹은 물웅덩이를 피하며 길을 걷는 것인데,
+여기에서 가장 큰 문제가 된 것은 바로 물웅덩이를 생성하는 것이었다.
+물웅덩이를 미리 배치할 수 있는 스토리 모드에서는 큰 문제까지는 아니지만, 계속해서 길을 생성해야 하는
+무한 모드에서는 물웅덩이 역시 무작위로 배치해야 하는 문제가 있었다.
+또한, 물웅덩이를 프리팹으로 배치한다고 하면 무엇보다도 다양해야 하는 물웅덩이의 모양이 작업량으로 발목을 잡는다.
+
+"Rainy Day Walker"에서 선택한 방법은 Perlin Noise를 활용해 지형을 생성하는 것이다.
+길을 만들기 위해, 우선 물의 역할을 할 평면 메시를 배치하고, 땅보다 밝게 표현되도록 색상을 조절한다.
+그 다음 땅의 역할을 할 메시를 만드는데, 이 때 정점(Vertex)을 2차원 평면처럼 놓은 뒤
+각 정점의 높이를 결정하는 변수로 Perlin Noise를 활용했다.
+이를 통해 자연스러움을 어느 정도 포기하는 대신, 작업량이 획기적으로 줄어들었고 무작위 생성 역시 가능해졌다.
+
+아래 코드는 물웅덩이가 있는 길을 나타내는 컴포넌트인 GeneratableField 클래스의 일부이다.
+```cs
+public void GenerateField(int width, int length, int waterLevel, float noiseDensity, float seedX, float seedZ)
+{
+    if (reverseWaterLevel)
+        waterLevel = 100 - waterLevel;
+    
+    _mesh = new Mesh()
+    {
+        name = "Walking Terrain"
+    };
+    GetComponent<MeshFilter>().mesh = _mesh;
+
+    // Creating Mesh Shape
+    _vertices = new Vector3[(width + 1) * (length + 1)];
+    _uvs = new Vector2[(width + 1) * (length + 1)];
+
+    var minSize = Mathf.Min(width, length);
+    for(int i = 0, z = 0; z <= width; z++)
+    {
+        for(int x = 0; x <= length; x++, i++)
+        {
+            var y = MAX_HEIGHT * Mathf.Clamp01(Mathf.PerlinNoise(x * noiseDensity / minSize + seedX, z * noiseDensity / minSize + seedZ));
+            _vertices[i] = new Vector3(x, y, z);
+            _uvs[i] = new Vector2(x * tileSize / minSize, z * tileSize / minSize);
+        }
+    }
+    
+    _triangles = new int[width * length * 6];
+    for(int z = 0, vert = 0, tris = 0; z < width; z++, vert++)
+    {
+        for(int x = 0; x < length; x++, vert++, tris += 6)
+        {
+            _triangles[tris] = vert;
+            _triangles[tris + 1] = vert + length + 1;
+            _triangles[tris + 2] = vert + 1;
+            _triangles[tris + 3] = vert + 1;
+            _triangles[tris + 4] = vert + length + 1;
+            _triangles[tris + 5] = vert + length + 2;
+        }
+    }
+
+    // Updating Mesh Data
+    _mesh.Clear();
+
+    _mesh.vertices = _vertices;
+    _mesh.triangles = _triangles;
+    _mesh.uv = _uvs;
+
+    _mesh.RecalculateNormals();
+    _mesh.RecalculateBounds();
+
+    GetComponent<MeshCollider>().sharedMesh = _mesh;
+
+    // Configuring Water Object
+    if (stretchWaterObject)
+    {
+        waterObject.transform.localPosition = new Vector3(length / 2f, MAX_HEIGHT * waterLevel / 100f, width / 2f);
+        waterObject.transform.localScale = new Vector3(length / 10f, 0.0001f, width / 10f);
+    }
+    else
+        waterObject.transform.localPosition = new Vector3(
+            waterObject.transform.localPosition.x,
+            MAX_HEIGHT * waterLevel / 100,
+            waterObject.transform.localPosition.z
+        );
+    waterObject.SetActive(true);
+}
+```
